@@ -7,7 +7,7 @@ import time
 
 
 def main(argv):
-   dbAddr = 'xedaq00'
+   dbAddr = 'xedaq01'
    node = 'unknown'
    updateFreq=10
    try:
@@ -48,10 +48,14 @@ def main(argv):
       timestamp = datetime.datetime.now()
       utc_timestamp=datetime.datetime.utcnow()
 
-      print("CPU: "+(str)(cpuPct))
-      print("MEM: "+(str)(memPct))      
+      disk_pct = psutil.disk_usage('/')[3]
+
+      print("CPU:  "+(str)(cpuPct))
+      print("MEM:  "+(str)(memPct))      
+      print("DISK: "+(str)(disk_pct))
       insertDoc = {"cpu_pct": cpuPct,
                    "mem_pct": memPct,
+                   "disk_pct": disk_pct,
                    "timestamp": utc_timestamp,
                    "node": node,
                    }
