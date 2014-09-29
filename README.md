@@ -1,6 +1,8 @@
 easymon
 =======
 
+System monitor that puts various diagnostic values into a mongodb database
+
 Install:
 
 	pip install -r requirements.txt
@@ -11,4 +13,4 @@ Run:
 
 	easymon --server={serveraddr} --node={nodename}
 
-System monitor that puts various diagnostic values into a mongodb database
+
