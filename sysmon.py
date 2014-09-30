@@ -10,15 +10,16 @@ def main(argv):
    dbAddr = 'xedaq01'
    node = 'unknown'
    updateFreq=10
+   nodetype=0
    try:
-       opts, args = getopt.getopt(sys.argv[1:],"ha:u:n:",["server=","update=","node="])
+       opts, args = getopt.getopt(sys.argv[1:],"ha:u:n:t:",["server=","update=","node=","type="])
    except getopt.GetoptError as err:
       print(err)
-      print("sysmon.py -n <myname> -s <server address> -u <update freq (s)>")
+      print("sysmon.py -n <myname> -s <server address> -t <type> -u <update freq (s)>")
       sys.exit(2)
    for opt, arg in opts:
        if opt=='-h':
-          print("sysmon.py -n <myname> -s <server address> -u <update freq (s)>")
+          print("sysmon.py -n <myname> -s <server address> -t <type> -u <update freq (s)>")
           sys.exit(0)
        elif opt in ("-s", "--server"):
           dbAddr=arg
@@ -26,6 +27,8 @@ def main(argv):
           updateFreq=arg
        elif opt in ("-n", "--node"):
           node=arg
+       elif opt in ("-t", "--type"):
+          nodetype=arg
    print("DB: "+dbAddr)
    print("Freq: "+ (str)(updateFreq))
    print("Node: "+(str)(node))
@@ -58,6 +61,7 @@ def main(argv):
                    "disk_pct": disk_pct,
                    "timestamp": utc_timestamp,
                    "node": node,
+                   "type": nodetype,
                    }
       collection.insert(insertDoc)
       time.sleep(updateFreq)
